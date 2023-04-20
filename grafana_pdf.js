@@ -27,7 +27,8 @@ const HEADLESS = true;
 // scale = 0.5.
 
 // Generate authorization header for basic auth
-const auth_header = "Basic " + new Buffer.from(auth_string).toString("base64");
+//const auth_header = "Basic " + new Buffer.from(auth_string).toString("base64");
+const token = 'Bearer ' + auth_string;
 
 (async () => {
   try {
@@ -51,7 +52,9 @@ const auth_header = "Basic " + new Buffer.from(auth_string).toString("base64");
     const page = await browser.newPage();
 
     // Set basic auth headers
-    await page.setExtraHTTPHeaders({ Authorization: auth_header });
+    //await page.setExtraHTTPHeaders({ Authorization: auth_header });
+    await page.setExtraHTTPHeaders({'Authorization': token});
+
 
     // Increase timeout from the default of 30 seconds to 120 seconds, to allow for slow-loading panels
     await page.setDefaultNavigationTimeout(120000);
