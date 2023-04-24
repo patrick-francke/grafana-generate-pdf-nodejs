@@ -19,7 +19,7 @@ Steps to run
 ### You can directly run this command by passing all the params
 
 ``` sh
-node grafana_pdf.js "http://localhost:3000/d/7ps_KoFMk?orgId=1&from=1602513421982&to=1602513601734" admin:admin output/grafana_dash.pdf
+node grafana_pdf.js "http://localhost:3000/d/7ps_KoFMk?orgId=1&from=1602513421982&to=1602513601734" grafana_token output/grafana_dash.pdf
 
 node grafana_pdf.js "http://localhost:3000/d/VyLxLpNnk/first?orgId=1" grafana_token output/grafana_dash.pdf
 ```
