@@ -4,16 +4,12 @@ const fs = require('fs');
 
 const app = express();
 
-//for pseudo-query sanitization
-function removeSpecialCharacters(str) {
-  return str.replace(/[^a-zA-Z0-9-_:\/%&=]/g, '');
-}
 
 //provide api endpoint
 app.get('/generate-pdf', (req, res) => {
   
 console.log(req.query.dashboardUrl);
-  const dashboardUrl = removeSpecialCharacters(decodeURIComponent(req.query.dashboardUrl));
+  const dashboardUrl = decodeURIComponent(req.query.dashboardUrl);
   const token = req.query.token;
 
   const d = new Date();
