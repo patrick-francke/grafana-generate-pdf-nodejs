@@ -4,17 +4,33 @@ const fs = require('fs');
 
 const app = express();
 
+function removeSpecialCharacters(str) {
+  return str.replace(/[^a-zA-Z0-9-_:\/&="?]/g, '');
+}
 
 //provide api endpoint
 app.get('/generate-pdf', (req, res) => {
   
-console.log(req.query.dashboardUrl);
-  const dashboardUrl = decodeURIComponent(req.query.dashboardUrl);
-  const token = req.query.token;
 
+  //req paramenters:
+  //container: grafana container_name
+  //port: grafana port
+  //dashlink: grafana all after main url ex: 'https://grafana_instance.ch/d/EPjhlwkVk/solar_admin?orgId=1&var-Filter=All&var-anlage=21105226' -> '/d/EPjhlwkVk/solar_admin?orgId=1&var-Filter=All&var-anlage=21105226'
+  //token: grafana read token which has access to the dashboards
+  //filename: name of the output file
+  
+  const container = removeSpecialCharacters(req.query.container);
+  const port = removeSpecialCharacters(req.query.port);
+  const dashlink = removeSpecialCharacters(req.query.dashlink);
+  const token = removeSpecialCharacters(req.query.token);
+  const filename = removeSpecialCharacters(req.query.filename);
+
+
+  const dashboardUrl = `"http://${container}:${port}${dashlink}"`;
+  console.log(dashboardUrl);
   const d = new Date();
   const dTime = d.getTime();
-  const filename = req.query.filename
+  
 
   const outputFilePath = `./output/${filename}_${dTime}.pdf`;
 
