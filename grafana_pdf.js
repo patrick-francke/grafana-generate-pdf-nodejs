@@ -139,14 +139,14 @@ const token = "Bearer " + auth_string;
         path: outFile,
         width: VIEWPORT_WIDTH_IN_PX + "px",
         height: height_px + "px",
-        //    format: 'Letter', <-- see note above for generating "paper-sized" outputs
-        scale: 1,
+        format: "A4", //<-- see note above for generating "paper-sized" outputs
+        scale: 0.5,
         displayHeaderFooter: false,
         margin: {
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
+          top: 30,
+          right: 30,
+          bottom: 30,
+          left: 30,
         },
       });
       console.log("PDF Generated Successfully. file path : ", outFile);
