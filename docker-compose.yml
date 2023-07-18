@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  pdf-generator:
+    build:
+      dockerfile: DOCKERFILE
+    container_name: "loralarm_grafana_pdf_renderer"
+    volumes:
+      - pdf-generator-data:/app/data
+    networks:
+      - iot_loralarm
+
+volumes:
+  pdf-generator-data:
+
+networks:
+  iot_loralarm:
+    external:
+      name: iot_loralarm

@@ -90,9 +90,7 @@ const token = "Bearer " + auth_string;
     // Get the height of the main canvas, and add a margin
     var height_px =
       (await page.evaluate(() => {
-        return document
-          .querySelector(".react-grid-layout")
-          .getBoundingClientRect().bottom;
+        return document.querySelector(".react-grid-layout").getBoundingClientRect().bottom;
       })) + 20;
 
     console.log("height of layout", height_px);
@@ -105,18 +103,14 @@ const token = "Bearer " + auth_string;
           const SCROLL_STOP_TIMER = 300;
 
           var totalHeight = 0;
-          var height_px = document
-            .querySelector(".react-grid-layout")
-            .getBoundingClientRect().bottom;
+          var height_px = document.querySelector(".react-grid-layout").getBoundingClientRect().bottom;
           console.log("height of layout 1", height_px);
           var timer = setInterval(() => {
             var scrollHeight = height_px;
 
             // select the scrollable view
             // in newer version of grafana the scrollable div is 'scrollbar-view'
-            var scrollableEl =
-              document.querySelector(".view") ||
-              document.querySelector(".main-view .scrollbar-view");
+            var scrollableEl = document.querySelector(".view") || document.querySelector(".main-view .scrollbar-view");
             // element.scrollBy(0, distance);
             scrollableEl.scrollBy({
               top: SCROLL_BY,
