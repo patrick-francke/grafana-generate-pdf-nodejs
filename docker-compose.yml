@@ -1,8 +1,9 @@
-version: "3.8"
+version: "3.3"
 
 services:
   pdf-generator:
     build:
+      context: .
       dockerfile: DOCKERFILE
     container_name: "loralarm_grafana_pdf_renderer"
     volumes:
