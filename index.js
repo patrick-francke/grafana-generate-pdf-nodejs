@@ -8,6 +8,11 @@ function removeSpecialCharacters(str) {
   return str.replace(/[^a-zA-Z0-9-_:\/&="?]/g, "");
 }
 
+app.get("/health", (req, res) => {
+  res.sendStatus(200);
+  return;
+});
+
 //provide api endpoint
 app.get("/generate-pdf", (req, res) => {
   //req paramenters:
@@ -32,30 +37,36 @@ app.get("/generate-pdf", (req, res) => {
 
   const command = `node grafana_pdf.js ${dashboardUrl} ${token} ${outputFilePath}`;
 
-  exec(command, (err, stdout, stderr) => {
-    if (err) {
-      console.error(err);
+  const childProcess = exec(command);
+
+  childProcess.stdout.on("data", (data) => {
+    console.log(data);
+  });
+
+  childProcess.stderr.on("data", (data) => {
+    console.error(data);
+  });
+
+  childProcess.on("close", (code) => {
+    if (code !== 0) {
+      console.error(`Child process exited with code ${code}`);
       res.status(500).send("Error generating PDF");
       return;
     }
 
-    console.log(`PDF generated at ${outputFilePath}`);
-
-    var file = fs.createReadStream(outputFilePath);
-    var stat = fs.statSync(outputFilePath);
+    const file = fs.createReadStream(outputFilePath);
+    const stat = fs.statSync(outputFilePath);
     res.setHeader("Content-Length", stat.size);
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", "attachment; filename=" + filename + ".pdf");
 
     file.on("end", function () {
       fs.unlink(outputFilePath, function () {
-        // file deleted
+        console.log("temp file deleted");
       });
     });
 
     file.pipe(res);
-
-    //res.send('PDF generated');
   });
 });
 

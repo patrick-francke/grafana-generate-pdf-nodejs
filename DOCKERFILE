@@ -44,6 +44,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends --no-install-su
     libxtst6 \
     ca-certificates \
     fonts-liberation \
+    fonts-noto-color-emoji\
     libappindicator1 \
     libnss3 \
     lsb-release \
