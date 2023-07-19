@@ -150,10 +150,10 @@ const token = "Bearer " + auth_string;
         },
       });
       console.log("PDF Generated Successfully. file path : ", outFile);
-
-      await browser.close();
     }
   } catch (error) {
     console.log(error);
+  } finally {
+    await browser.close();
   }
 })();
